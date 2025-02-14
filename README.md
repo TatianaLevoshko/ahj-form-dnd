@@ -1,4 +1,5 @@
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Netology+science+student)](https://git.io/typing-svg)
+![Моя картинка](https://static.tildacdn.com/tild3965-3531-4235-b330-633633363065/full_1.svg)
 
 # ahj-form-dnd
 
