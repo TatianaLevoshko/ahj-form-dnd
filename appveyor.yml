@@ -1,0 +1,42 @@
+version: 1.0.{build}
+image: 
+  - Ubuntu2004
+  - Visual Studio 2022 # образ для сборки
+
+environment:
+  matrix:
+    - nodejs_version: "20"
+
+branches:
+  only:
+    - main  # только ветка main
+
+cache:
+  - .yarn/cache  # кешируем зависимости Yarn
+
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - yarn install --frozen-lockfile
+
+before_build:
+  - set -e
+  - yarn lint  # линтинг перед сборкой
+
+test_script:
+  - yarn test --verbose  # запуск тестов с логированием
+
+build_script:
+  - yarn build
+  - ls -la ./dist  # вывод содержимого папки dist для отладки
+
+artifacts:
+  - path: ./dist
+    name: Dist
+
+deploy_script:
+  - git config --global credential.helper store
+  - git config --global user.name AppVeyor
+  - git config --global user.email ci@appveyor.com
+  - echo "https://$GITHUB_TOKEN:x-oauth-basic@github.com" > "$HOME/.git-credentials"
+  - npx gh-pages -d dist -u "appveyor-bot <ci@appveyor>"
+  - echo "✅ https://tatianalevoshko.github.io/ahj-form-dnd/"
