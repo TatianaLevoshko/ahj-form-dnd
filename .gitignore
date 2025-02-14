@@ -12,3 +12,6 @@
 #!.yarn/cache
 .pnp.*
 node_modules
+
+# Игнорировать папку с заметками
+notes/
